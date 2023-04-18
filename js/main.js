@@ -1,67 +1,70 @@
-/*document.querySelector("#plus-button").addEventListener("click", () => {
-  const resultElement = document.querySelector("#result");
-  resultElement.innerText = parseFloat(resultElement.innerText) + 1;
-});*/
+const game = document.querySelector("#game");
+const bucket = document.querySelector("#bucket");
 
-function numberClickListener(char) {
-  return () => {
-    const element = document.querySelector("#number");
-    if(element.innerText === '0') {
-      element.innerText = char;
+let score = 0;
+let lives = 3;
+game.addEventListener("mousemove", event => {
+  const gameRect = game.getBoundingClientRect();
+  const bucketWidth = bucket.offsetWidth;
+  const mouseX = event.clientX - gameRect.left;
+  const maxX = game.offsetWidth - bucketWidth;
+  const bucketX = Math.min(Math.max(mouseX - bucketWidth / 2, 0), maxX);
+  bucket.style.left = bucketX + "px";
+});
+
+eggInterval= setInterval(() => {
+  const game = document.querySelector("#game");
+
+  const egg = new Image();
+  egg.addEventListener("load", () => {
+    egg.classList.add("egg");
+    const x = Math.round(Math.random() * (120 - (5 * egg.width / egg.height)));
+    egg.style.left = x + "vh";
+    game.appendChild(egg);
+  });
+
+  egg.src = "img/easterEgg.png";
+}, 1000);
+
+
+setInterval(() => {
+  const eggs = document.querySelectorAll("#game > .egg");
+
+  eggs.forEach(egg => {
+    const eggRect = egg.getBoundingClientRect();
+    const bucketRect = bucket.getBoundingClientRect();
+
+    if (eggRect.bottom >= bucketRect.top &&
+      eggRect.left >= bucketRect.left &&
+      eggRect.right <= bucketRect.right) {
+      egg.remove();
+      score++;
     } else {
-      element.innerText = element.innerText + char;
+      const top = parseFloat(egg.style.top) || 0;
+      egg.style.top = top + 0.3 + "vh";
+      if (top > 100) {
+        const heart = document.querySelector(".heart");
+        heart.remove();
+        egg.remove();
+        lives--;
+
+        if (lives === 0) {
+          clearInterval(eggInterval);
+          const modal = document.getElementById("myModal");
+          const playAgainBtn = document.getElementById("play-again-btn");
+          document.getElementById("score").textContent = score;
+          modal.style.display = "block";
+
+          playAgainBtn.onclick = () => {
+            // Restart the game
+            modal.style.display = "none";
+            window.location.reload();
+          }
+        }
+      }
     }
-  };
-}
 
-document.querySelector("#one-button").addEventListener("click", numberClickListener(1));
-document.querySelector("#two-button").addEventListener("click", numberClickListener(2));
-document.querySelector("#three-button").addEventListener("click", numberClickListener(3));
-document.querySelector("#four-button").addEventListener("click", numberClickListener(4));
-document.querySelector("#five-button").addEventListener("click", numberClickListener(5));
-document.querySelector("#six-button").addEventListener("click", numberClickListener(6));
-document.querySelector("#seven-button").addEventListener("click", numberClickListener(7));
-document.querySelector("#eight-button").addEventListener("click", numberClickListener(8));
-document.querySelector("#nine-button").addEventListener("click", numberClickListener(9));
-document.querySelector("#zero-button").addEventListener("click", numberClickListener(0));
+  });
 
-document.querySelector("#dot-button").addEventListener("click", () => {
-  const element = document.querySelector("#number");
-  if(element.innerText.indexOf('.') === -1) {
-    element.innerText = element.innerText + '.';
-  }
-});
 
-document.querySelector("#remove-last-char-button").addEventListener("click", () => {
-  const element = document.querySelector("#number");
-  element.innerText= element.innerText.substring(0, element.innerText.length -1);
-
-  if(element.innerText.length === 0){
-    element.innerText = "0";
-  }
-});
-
-document.querySelector("#remove-all-button").addEventListener("click", () => {
-  document.querySelector("#result").innerText = "0";
-  document.querySelector("#number").innerText = "0";
-});
-
-document.querySelector("#enter-button").addEventListener("click", () => {
-  document.querySelector("#result").innerText = document.querySelector("#number").innerText;
-  document.querySelector("#number").innerText = "0";
-});
-
-function operationClickListener(operation) {
-  return () => {
-    const result = document.querySelector("#result");
-    const number = document.querySelector("#number");
-
-    result.innerText = Math.round(operation(parseFloat(result.innerText), parseFloat(number.innerText)) * 100000)/100000;
-    number.innerText = "0";
-  }
-}
-
-document.querySelector("#plus-button").addEventListener("click", operationClickListener((a, b) => a + b));
-document.querySelector("#minus-button").addEventListener("click", operationClickListener((a, b) => a - b));
-document.querySelector("#multiply-button").addEventListener("click", operationClickListener((a, b) => a * b));
-document.querySelector("#divide-button").addEventListener("click", operationClickListener((a, b) => a / b));
+}, 30 / 1000);

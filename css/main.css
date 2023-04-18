@@ -20,6 +20,89 @@ body{
 .egg{
   height: 5vh;
   position: absolute;
-  top: 100px;
-  left: 200px;
+}
+
+.heart {
+  justify-items: right;
+  align-items: end;
+  width: 5vh;
+}
+
+#bucket{
+  position: absolute;
+  bottom: 0;
+}
+
+.easter-bucket{
+  width: 150px;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 20% auto auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 70%;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.modal-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.modal-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#play-again-btn {
+  display: block;
+  margin: 30px auto auto;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #8a2387, #e94057, #f27121);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#play-again-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }

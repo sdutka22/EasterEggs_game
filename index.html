@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Easter egg catcher game</title>
+  <title>Easter Eggs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="manifest" href="site.webmanifest">
   <link rel="apple-touch-icon" href="icon.png">
@@ -12,9 +12,27 @@
 </head>
 
 <body>
-  <div id="game">
-    <img class="egg" src="img/easterEgg.png">
+<div id="game">
+  <div id="life">
+    <img class="heart" src="img/heart.svg">
+    <img class="heart" src="img/heart.svg">
+    <img class="heart" src="img/heart.svg">
   </div>
-</body>
+  <div id="bucket">
+    <img class="easter-bucket" src="img/easterBucket.png">
+  </div>
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <p class="modal-header">Game Over!</p>
+      <p class="modal-text">Your score: <span id="score"></span></p>
+      <button id="play-again-btn">Play Again</button>
+    </div>
+  </div>
 
+</div>
+<script src="js/main.js"></script>
+</body>
 </html>
+
